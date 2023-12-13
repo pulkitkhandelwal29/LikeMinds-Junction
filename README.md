@@ -1,0 +1,2 @@
+# LikeMinds-Junction
+Django Project
