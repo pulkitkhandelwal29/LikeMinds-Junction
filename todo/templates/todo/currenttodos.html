@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  {% extends 'base.html' %}
+
+  {% block content %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+      <h1>Your Interest</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+      {% if todos %}
+      <div class="list-group">
+        {% for todo in todos %}
+        <!--Referencing to the viewtodo page with primary key ID-->
+        <a href="{% url 'viewtodo' todo.id %}" class="list-group-item list-group-item-action">
+          <b>{{ todo.title }}</b>
+          <br>
+        (Created at :- {{ todo.created }})</a><br>
+        {% endfor %}
+        <br><br><br>
+        <div class="text-center">
+        <a role="button" class="btn btn-primary" href="{% url 'findlikeminds' %}">Find LikeMinds</a>
+      </div>
+      </div>
+      {% else %}
+      <div class="text-center">
+        <h2>Looks like you don't have added any interest of yours! Let's add one.</h2>
+        <br>
+        <a role="button" class="btn btn-primary" href="{% url 'createtodo' %}">New Interest</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endblock %}
+
+</body>
+
+</html>

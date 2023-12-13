@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+      <script>
+ function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                // Populate the latitude and longitude fields in the form
+                document.getElementById('id_latitude').value = latitude;
+                document.getElementById('id_longitude').value = longitude;
+                document.getElementById("submitButton").disabled = false;
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+</script>
+  </head>
+  <body>
+    {% extends 'base.html' %}
+    <!--Accessing form from views.py file (as_p is creating form in paragraph tag)-->
+    <!-- {{ form.as_p }} -->
+
+    {% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Find LikeMinds</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                <button type="button" class="btn btn-success" onclick="getLocation()">Get My Location</button>&nbsp;
+            </div>
+                <div class="form-group">
+                    <label for="title">Latitude</label>
+                    <input type="text" name="latitude" class="form-control" id='id_latitude' readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="title">Longtiude</label>
+                    <input type="text" name="longitude" class="form-control" id="id_longitude" readonly required>
+                </div><br>
+                <br>
+                <br>
+                <button type="submit" id="submitButton" class="btn btn-primary" disabled>Find</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+  </body>
+
+</html>

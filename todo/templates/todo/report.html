@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  {% extends 'base.html' %}
+
+  {% block content %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+      <h1>LikeMinded People</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+      {% if friends %}
+      <div class="list-group">
+        {% for key, value in friends.items %}
+        <!--Referencing to the viewtodo page with primary key ID-->
+        <a class="list-group-item list-group-item-action">
+          <b>{{ key }}</b>
+          <br>
+        (Located at a distance of :- {{ value }} m)</a><br>
+        {% endfor %}
+        <br><br><br>
+        <div class="text-center">
+        <a role="button" class="btn btn-primary" href="{% url 'currenttodos' %}">Back to Home</a>
+      </div>
+      </div>
+      {% else %}
+      <div class="text-center">
+        <h2>Looks like there is no matching interest person found near your area!</h2>
+        <br>
+        <a role="button" class="btn btn-primary" href="{% url 'findlikeminds' %}">Find Again</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endblock %}
+
+</body>
+
+</html>
